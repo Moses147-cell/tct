@@ -63,7 +63,7 @@ irm https://i-tct.com/dl/windows | iex
 ```
 - Follow the on-screen guide to complete installation.
 
-[Click here for more](https://i-tct.com/windows/)
+ - OR *Click*  [here ](https://i-tct.com/windows/)
 ---
 
 ### ☁️ Deploy on Heroku
