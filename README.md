@@ -17,27 +17,36 @@ It provides full control over your WhatsApp automation with:
 - ⚡ High-performance **pure Go engine**
 - 🌍 **Multi-language support**
 - 👥 **Advanced group management**
+- 📊 Easy set usage **view dashboard**
+
+### Dashboard Preview
+
+<p align="center">
+  <img src="https://t-ct.org/media/dash1.jpg" width="30%" />
+  <img src="https://t-ct.org/media/dash2.jpg" width="30%" />
+  <img src="https://t-ct.org/media/dash3.jpg" width="30%" />
+</p>
 
 ---
 
 ## Supported Languages
 
-| Language | Code | Region |
-|--------|------|--------|
-| Arabic | `ar` | 🇸🇦 |
-| English | `en` | 🇺🇸 |
-| Spanish | `es` | 🇪🇸 |
-| French | `fr` | 🇫🇷 |
-| Hindi | `hi` | 🇮🇳 |
-| Portuguese | `pt` | 🇵🇹 |
-| Russian | `ru` | 🇷🇺 |
-| Indonesian | `id` | 🇮🇩 |
-| Swahili | `sw` | 🇰🇪 |
+| Language    | Code | Region | Command        |
+|-------------|------|--------|----------------|
+| Arabic      | `ar` | 🇸🇦     | `.lang ar`     |
+| English     | `en` | 🇺🇸     | `.lang en`     |
+| Spanish     | `es` | 🇪🇸     | `.lang es`     |
+| French      | `fr` | 🇫🇷     | `.lang fr`     |
+| Hindi       | `hi` | 🇮🇳     | `.lang hi`     |
+| Portuguese  | `pt` | 🇵🇹     | `.lang pt`     |
+| Russian     | `ru` | 🇷🇺     | `.lang ru`     |
+| Indonesian  | `id` | 🇮🇩     | `.lang id`     |
+| Swahili     | `sw` | 🇰🇪     | `.lang sw`     |
 
 Change the bot language using:
 
 ```
-.lang en
+.lang <language>
 ```
 
 Example:
