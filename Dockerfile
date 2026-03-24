@@ -6,11 +6,11 @@ RUN apt-get update \
 
 WORKDIR /
 
-# 2. Copy the repo
 COPY . .
 
-# 3. Permissions
 RUN chmod +x /entrypoint.sh \
  && chmod -R 755 /data || true
+
+EXPOSE 7860
 
 ENTRYPOINT ["/entrypoint.sh"]
