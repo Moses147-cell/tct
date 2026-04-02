@@ -3,61 +3,124 @@
 # Format: YAML
 # ==============================================================================
 
-# --- Core Settings ---
+# ------------------------------------------------------------------------------
+# CORE SETTINGS
+# Basic identification and operation parameters for the bot.
+# ------------------------------------------------------------------------------
+# Unique identifier for this specific bot session/instance.
 SESSION_ID: "tct_xxxxx"
-TIMEZONE: "Africa/Nairobi"
-FILTER_NOISE_LOGS: true # Clean up console output
 
-# --- Server / Deployment ---
-# The port the web dashboard runs on
+# Timezone used for logging, scheduled tasks, and time-based commands.
+# Use standard tz database names (e.g., "Africa/Nairobi", "America/New_York").
+TIMEZONE: "Africa/Nairobi"
+
+# Set to true to hide verbose debug/trace logs and keep the console clean.
+FILTER_NOISE_LOGS: true
+
+# The character(s) used to trigger bot commands (e.g., ".help", "!ping").
+PREFIX: "."
+
+
+# ------------------------------------------------------------------------------
+# SERVER / DEPLOYMENT
+# Settings for the local server environment.
+# ------------------------------------------------------------------------------
+# The port on which the web dashboard and internal API will run.
 SERVER_PORT: 3003
 
-#UNIX_SOCKET_PATH: "/tmp/my_app_1.sock" # Uncomment if using IPC sockets and if you don't know leave it commented
+# Path for IPC sockets. 
+# NOTE: Leave this commented out unless you specifically require UNIX sockets.
+#UNIX_SOCKET_PATH: "/tmp/my_app_1.sock"
 
-# --- API Keys (Optional) ---
-#OPENWEATHER_API_KEY: "" # Needed for weather commands , only uncomment if there is an actual key
-#MISTRAL_API_KEY: "" # Needed for AI Chatbot commands (not used for now)
 
-# --- Database Settings ---
+# ------------------------------------------------------------------------------
+# EXTERNAL API KEYS
+# Credentials for third-party services. Keep these secure!
+# Only uncomment the lines if you are actively using these services.
+# ------------------------------------------------------------------------------
+#OPENWEATHER_API_KEY: "" # Required for weather-related commands
+#MISTRAL_API_KEY: ""     # Required for AI Chatbot commands (Currently unused)
+
+
+# ------------------------------------------------------------------------------
+# DATABASE SETTINGS
+# Advanced configuration for database connection and performance tuning.
+# ------------------------------------------------------------------------------
 DATABASE:
-  # ------------------------------------------------------------------
   # SYNC_MODE: Controls how fast the bot writes to the database.
-  # If your bot is lagging, hanging, or CPU usage is high, change this.
-  # 
+  # If your bot is lagging, hanging, or CPU usage is high, adjust this.
+  #
   # Options:
-  #   "OFF"    - Maximum Speed (God Mode). Instantly fixes lag on heavy 
-  #              bots. Slight risk of DB corruption if the VPS/Server 
-  #              completely loses power unexpectedly.
-  #   "NORMAL" - Balanced (Default). Good speed, safe from bot crashes.
+  #   "OFF"    - Maximum Speed (God Mode). Instantly fixes lag on heavy bots.
+  #              Warning: Slight risk of DB corruption if the server loses power.
+  #   "NORMAL" - Balanced (Default). Good speed, safe from standard bot crashes.
   #   "FULL"   - Maximum Safety. Very slow, not recommended for busy bots.
-  # ------------------------------------------------------------------
   SYNC_MODE: "NORMAL"
+  
+  # Number of database operations to batch together before executing.
   BATCH_SIZE: 300
-  FLUSH_INTERVAL: "5000" # milliseconds or duration string like "5s"
-  CACHE_MAX_BYTES: 134217728 # 128MB
+  
+  # How often to flush batched operations to the database (in milliseconds, or string like "5s").
+  FLUSH_INTERVAL: "5000"
+  
+  # Maximum memory the database can use for caching (Default: 134217728 = 128MB).
+  CACHE_MAX_BYTES: 134217728
+  
+  # Enable Write-Ahead Logging for better concurrency and performance.
   USE_WAL: true
+  
+  # How long to wait when the database is locked before throwing an error (in milliseconds).
   BUSY_TIMEOUT_MS: 15000
 
-# --- Web Dashboard ---
+
+# ------------------------------------------------------------------------------
+# WEB DASHBOARD
+# Settings for the bot's web management interface.
+# ------------------------------------------------------------------------------
 DASHBOARD:
-  ENABLED: true
+  ENABLED: false
+  # IMPORTANT: Change these default credentials before deploying to production!
   USER: "admin"
   PASSWORD: "tct-99"
-# --- Cloudinary (For URL uploads) ---
+
+
+# ------------------------------------------------------------------------------
+# CLOUDINARY INTEGRATION
+# Used for hosting and uploading media via URLs.
+# Uncomment and fill out if your bot processes external media uploads.
+# ------------------------------------------------------------------------------
 #CLOUDINARY:
 #  CLOUD_NAME: ""
 #  API_KEY: ""
 #  API_SECRET: ""
-# --- Lock System ---
 
+
+# ------------------------------------------------------------------------------
+# MODERATION / LOCK SYSTEM
+# Rules and automated actions for managing group/chat behavior.
+# ------------------------------------------------------------------------------
 LOCK_SYSTEM:
+  # Number of warnings a user can receive before a penalty (kick/ban) is applied.
   MAX_WARNS: 3
+  
+  # The message sent when a user is warned. 
+  # Available placeholders: {user}, {max_warns}, {remaining_warns}, {reason}
   WARN_MESSAGE: "*⚠️WARN MESSAGE⚠️*\n\n*USER:* {user}\n*MAX WARNINGS:* {max_warns}\n*REMAINING WARNINGS:* {remaining_warns}\n*REASON:* {reason}"
+  
+  # Fallback reason if an admin doesn't provide one when warning.
   DEFAULT_REASON: "Breaking group rules."
+  
+  # If true, the specific word/action that triggered the warning will be appended to the reason.
   SHOW_TRIGGER_IN_REASON: true
-  DELETE_WARN_AFTER: 3 # Minutes
+  
+  # Auto-delete the warning message from the chat after this many minutes.
+  DELETE_WARN_AFTER: 3
 
-# --- Media Assets ---
+
+# ------------------------------------------------------------------------------
+# MEDIA ASSETS
+# Links to images used for specific bot events (randomly selected from the lists).
+# ------------------------------------------------------------------------------
 ALIVE_IMAGES:
   - "https://t-ct.org/media/alive.jpg"
   - "https://t-ct.org/media/alive1.jpg"
@@ -71,6 +134,7 @@ ALIVE_IMAGES:
   - "https://t-ct.org/media/alive9.jpg"
   - "https://t-ct.org/media/alive10.jpg"
   - "https://t-ct.org/media/alive11.jpg"
+
 WELCOME_IMAGES:
   - "https://t-ct.org/media/welcome1.jpg"
   - "https://t-ct.org/media/welcome2.jpg"
@@ -81,8 +145,12 @@ WELCOME_IMAGES:
   - "https://t-ct.org/media/welcome7.jpg"
   - "https://t-ct.org/media/welcome8.jpg"
   - "https://t-ct.org/media/welcome9.jpg"
-PREFIX: "."
 
-# Don't change this 
+
+# ------------------------------------------------------------------------------
+# SYSTEM OVERRIDES
+# Core network overrides. DO NOT change these unless you are operating behind
+# a specific corporate or systemic proxy that requires it.
+# ------------------------------------------------------------------------------
 #HTTP_PROXY: "none"
 #HTTPS_PROXY: "none"
